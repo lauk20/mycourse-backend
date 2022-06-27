@@ -2,10 +2,9 @@ const mongoose = require('mongoose')
 
 const courseSchema = new mongoose.Schema({
   name: String,
-  due: Date,
   assignments: [{
-    type: String,
-    //ref: 'assignments' to be implemented
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Assignment"
   }],
 })
 
