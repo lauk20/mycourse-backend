@@ -2,7 +2,7 @@ const router = require("express").Router()
 const Course = require("../models/course")
 
 router.get("/", (request, response) => {
-  Course.find({}).then((courses) => {response.json(courses)})
+  Course.find({}).populate("assignments").then((courses) => {response.json(courses)})
 })
 
 router.post("/", async (request, response) => {

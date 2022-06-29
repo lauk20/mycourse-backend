@@ -14,10 +14,12 @@ mongoose.connect(url)
   })
 
 const courseRouter = require("./controllers/courses")
+const assignmentRouter = require("./controllers/assignments")
 
 app.use(cors())
 app.use(express.json())
 app.use("/api/courses", courseRouter)
+app.use("/api/assignments", assignmentRouter)
 
 app.listen(3001, () => {
   console.log("Server running on port 3001")
