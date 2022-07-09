@@ -6,6 +6,10 @@ const courseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Assignment"
   }],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
 })
 
 courseSchema.set("toJSON", {
