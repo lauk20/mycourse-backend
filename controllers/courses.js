@@ -1,5 +1,6 @@
 const router = require("express").Router()
 const Course = require("../models/course")
+const jwt = require("jsonwebtoken")
 
 const getToken = (request) => {
   const authorization = request.get("authorization");
@@ -12,6 +13,9 @@ const getToken = (request) => {
 
 router.get("/", (request, response) => {
   const token = getToken(request);
+  if (!token) {
+    return response.status(401).json({ error: "invalid token" })
+  }
   const decodedToken = jwt.verify(token, process.env.JWTTOKEN);
   if (!decodedToken.id) {
     return response.status(401).json({ error: "invalid token" })
