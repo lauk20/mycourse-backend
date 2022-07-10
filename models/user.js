@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   }]
 })
 
-userSchema.set("toJSON". {
+userSchema.set("toJSON", {
   transform: (document, obj) => {
     delete obj.__v
   }
