@@ -11,7 +11,7 @@ router.post("/", async (request, response) => {
     content: request.body.content,
     due: request.body.due,
     course: request.body.course,
-    details: ""
+    details: request.body.details,
   })
 
   const savedAssignment = await assignment.save()
