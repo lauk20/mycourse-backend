@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const assignmentSchema = new mongoose.Schema({
   content: String,
   due: Date,
+  details: String,
   course: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course"

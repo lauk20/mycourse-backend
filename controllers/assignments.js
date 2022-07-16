@@ -10,7 +10,8 @@ router.post("/", async (request, response) => {
   const assignment = new Assignment({
     content: request.body.content,
     due: request.body.due,
-    course: request.body.course
+    course: request.body.course,
+    details: ""
   })
 
   const savedAssignment = await assignment.save()
@@ -22,6 +23,14 @@ router.post("/", async (request, response) => {
   console.log(course)
 
   response.json(savedAssignment)
+})
+
+router.put("/:id", async (request, response) => {
+  const id = request.params.id
+
+  const assignment = await Assignment.findByIdAndUpdate(id, { details: request.body.details }, { new: true });
+
+  response.json(assignment)
 })
 
 module.exports = router;
