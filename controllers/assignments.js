@@ -28,7 +28,7 @@ router.post("/", async (request, response) => {
 router.put("/:id", async (request, response) => {
   const id = request.params.id
 
-  const assignment = await Assignment.findByIdAndUpdate(id, { details: request.body.details }, { new: true });
+  const assignment = await Assignment.findByIdAndUpdate(id, request.body, { new: true });
 
   response.json(assignment)
 })
