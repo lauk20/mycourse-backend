@@ -33,4 +33,12 @@ router.put("/:id", async (request, response) => {
   response.json(assignment)
 })
 
+router.delete("/:id", async (request, response) => {
+  const id = request.params.id
+
+  const deleted = await Assignment.findOneAndDelete({ _id: id });
+
+  response.json(deleted)
+})
+
 module.exports = router;
