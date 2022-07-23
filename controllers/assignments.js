@@ -28,7 +28,7 @@ router.post("/", async (request, response) => {
 router.put("/:id", async (request, response) => {
   const id = request.params.id
 
-  const assignment = await Assignment.findByIdAndUpdate(id, request.body, { new: true });
+  const assignment = await Assignment.findOneAndUpdate({_id: id, user: request.decodedToken.id}, request.body, { new: true });
 
   response.json(assignment)
 })
@@ -36,7 +36,7 @@ router.put("/:id", async (request, response) => {
 router.delete("/:id", async (request, response) => {
   const id = request.params.id
 
-  const deleted = await Assignment.findOneAndDelete({ _id: id });
+  const deleted = await Assignment.findOneAndDelete({ _id: id, user: request.decodedToken.id });
 
   response.json(deleted)
 })
