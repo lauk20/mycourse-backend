@@ -11,6 +11,13 @@ const getToken = (request) => {
   return null;
 }
 
+router.get("/:id", (request, response) => {
+  const decodedToken = request.decodedToken;
+  const id = request.params.id
+
+  Course.findOne({user: decodedToken.id, _id: id}).populate("assignments").then((courses) => {response.json(courses)})
+})
+
 router.get("/", (request, response) => {
   const decodedToken = request.decodedToken;
 
