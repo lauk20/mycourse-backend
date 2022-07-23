@@ -12,27 +12,13 @@ const getToken = (request) => {
 }
 
 router.get("/", (request, response) => {
-  const token = getToken(request);
-  if (!token) {
-    return response.status(401).json({ error: "invalid token" })
-  }
-  const decodedToken = jwt.verify(token, process.env.JWTTOKEN);
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: "invalid token" })
-  }
+  const decodedToken = request.decodedToken;
 
   Course.find({user: decodedToken.id}).populate("assignments").then((courses) => {response.json(courses)})
 })
 
 router.post("/", async (request, response) => {
-  const token = getToken(request);
-  if (!token) {
-    return response.status(401).json({ error: "invalid token" })
-  }
-  const decodedToken = jwt.verify(token, process.env.JWTTOKEN);
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: "invalid token" })
-  }
+  const decodedToken = request.decodedToken;
 
   const course = new Course({
     name: request.body.name,
