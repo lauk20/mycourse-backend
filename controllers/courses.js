@@ -37,4 +37,22 @@ router.post("/", async (request, response) => {
   response.json(savedCourse)
 })
 
+router.put("/:id", async (request, response) => {
+  const decodedToken = request.decodedToken;
+  const id = request.params.id
+
+  const course = await Course.findOneAndUpdate({user: decodedToken.id, _id: id}, request.body, {new: true})
+
+  response.json(course);
+})
+
+router.delete("/:id", async (request, response) => {
+  const decodedToken = request.decodedToken;
+  const id = request.params.id
+
+  const course = await Course.findOneAndDelete({user: decodedToken.id, _id: id})
+
+  response.json(course);
+})
+
 module.exports = router;
