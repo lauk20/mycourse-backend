@@ -7,11 +7,13 @@ router.get("/", (request, response) => {
 })
 
 router.post("/", async (request, response) => {
+  const decodedToken = request.decodedToken
   const assignment = new Assignment({
     content: request.body.content,
     due: request.body.due,
     course: request.body.course,
     details: request.body.details,
+    user: decodedToken.id
   })
 
   const savedAssignment = await assignment.save()
