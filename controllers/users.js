@@ -2,11 +2,30 @@ const router = require("express").Router()
 const bcrypt = require("bcrypt")
 const User = require("../models/user")
 
+
+const validateUsername = (username) => {
+  if (username.length > 20 || username.length < 3) {
+    return false;
+  }
+
+  const regex = /^[a-z0-9]{3,20}$/;
+
+  if (!username.match(regex)) {
+    return false;
+  }
+
+  return true;
+}
+
 router.post("/", async (request, response) => {
   const { username, password } = request.body
   const takenUser = await User.findOne({username: username})
   if (takenUser) {
     return response.status(400).json({error: "username already taken"})
+  }
+
+  if (!validateUsername(username)) {
+    return response.status(400).json({error: "username does not meet requirements"})
   }
 
   const saltrounds = 12
