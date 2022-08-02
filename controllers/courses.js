@@ -15,13 +15,16 @@ router.get("/:id", (request, response) => {
   const decodedToken = request.decodedToken;
   const id = request.params.id
 
-  Course.findOne({user: decodedToken.id, _id: id}).populate("assignments").then((courses) => {response.json(courses)})
+  Course.findOne({user: decodedToken.id, _id: id}).populate("assignments")
+    .then((courses) => {response.json(courses)})
+    .catch(err => {response.status(404).json({error: "course not found"})})
 })
 
 router.get("/", (request, response) => {
   const decodedToken = request.decodedToken;
 
-  Course.find({user: decodedToken.id}).populate("assignments").then((courses) => {response.json(courses)})
+  Course.find({user: decodedToken.id}).populate("assignments")
+    .then((courses) => {response.json(courses)})
 })
 
 router.post("/", async (request, response) => {
