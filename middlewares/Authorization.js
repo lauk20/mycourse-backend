@@ -19,7 +19,14 @@ const auth = (request, response, next) => {
     return next(err);
   }
 
-  const decodedToken = jwt.verify(token, process.env.JWTTOKEN);
+  const decodedToken = jwt.verify(token, process.env.JWTTOKEN, (err, decoded) => {
+    console.log(err)
+    if (err && err.name == "TokenExpiredError") {
+      return response.status(401).json({error: "expired token"})
+    }
+
+    return decoded;
+  });
   if (!decodedToken.id) {
     const err = new Error("Invalid Token");
     err.status = 401;
@@ -28,6 +35,7 @@ const auth = (request, response, next) => {
   }
 
   request.decodedToken = decodedToken;
+
   return next();
 }
 

@@ -12,13 +12,24 @@ router.post("/", async (request, response) => {
     return response.status(401).json({error: "invalid username or password"})
   }
 
-  const tokenObj = {
+  let tokenObj = {
     username,
     id: user._id
   }
 
-  const token = jwt.sign(tokenObj, process.env.JWTTOKEN)
+  const token = jwt.sign(tokenObj, process.env.JWTTOKEN, {
+    expiresIn: "20s"
+  })
 
+  tokenObj["refresh"] = process.env.JWTTOKEN;
+
+  const refreshToken = jwt.sign(tokenObj, process.env.JWTTOKEN, {
+    expiresIn: "30d"
+  })
+
+  response.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+  })
   response.status(200).json({ token, username })
 })
 
