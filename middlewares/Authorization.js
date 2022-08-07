@@ -20,7 +20,6 @@ const auth = (request, response, next) => {
   }
 
   const decodedToken = jwt.verify(token, process.env.JWTTOKEN, (err, decoded) => {
-    console.log(err)
     if (err && err.name == "TokenExpiredError") {
       return response.status(401).json({error: "expired token"})
     }
