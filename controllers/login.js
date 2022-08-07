@@ -18,13 +18,13 @@ router.post("/", async (request, response) => {
   }
 
   const token = jwt.sign(tokenObj, process.env.JWTTOKEN, {
-    expiresIn: "10s"
+    expiresIn: "1h"
   })
 
   tokenObj["refresh"] = process.env.JWTTOKEN;
 
   const refreshToken = jwt.sign(tokenObj, process.env.JWTTOKEN, {
-    expiresIn: "1m"
+    expiresIn: "30d"
   })
 
   response.cookie("refreshToken", refreshToken, {

@@ -55,13 +55,13 @@ router.get("/", async (request, response, next) => {
   }
 
   const token = jwt.sign(tokenObj, process.env.JWTTOKEN, {
-    expiresIn: "10s"
+    expiresIn: "1h"
   })
 
   tokenObj["refresh"] = process.env.JWTTOKEN;
 
   refreshToken = jwt.sign(tokenObj, process.env.JWTTOKEN, {
-    expiresIn: "1m"
+    expiresIn: "30d"
   })
 
   response.cookie("refreshToken", refreshToken, {
