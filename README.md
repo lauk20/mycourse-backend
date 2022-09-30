@@ -1,7 +1,7 @@
 # mycourse (Back-End)
 A full-stack web-application to help manage your coursework.
 This is the back-end repository.
-The backend repository can be found at lauk20/mycourse
+The frontend repository can be found at lauk20/mycourse
 
 ## Features (Back-End)
 - Handling API routes/calls and authorization.
